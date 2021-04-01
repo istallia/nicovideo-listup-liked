@@ -1,0 +1,21 @@
+{
+	"manifest_version" : 2,
+	"name"             : "ニコ動いいねリストアップツール",
+	"version"          : "0.1.0",
+	"description"      : "ニコニコ動画にて自身の動画の「いいね！」ユーザーをリストアップするツール",
+	"author"           : "istallia",
+	"icons" : {
+		"32"  : "icon_32.png",
+		"48"  : "icon_48.png",
+		"128" : "icon_128.png"
+	},
+	"content_scripts" : [{
+		"matches" : ["*://upload.nicovideo.jp"],
+		"js"      : ["content-script.js"],
+		"css"     : ["content-script.css"]
+	}],
+	"permissions" : [
+		"*://www.nicovideo.jp",
+		"*://upload.nicovideo.jp"
+	]
+}
