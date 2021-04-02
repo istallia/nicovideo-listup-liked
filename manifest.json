@@ -10,12 +10,12 @@
 		"128" : "icon_128.png"
 	},
 	"content_scripts" : [{
-		"matches" : ["*://upload.nicovideo.jp"],
+		"matches" : ["*://www.upload.nicovideo.jp/*"],
 		"js"      : ["content-script.js"],
 		"css"     : ["content-script.css"]
 	}],
 	"permissions" : [
-		"*://www.nicovideo.jp",
-		"*://upload.nicovideo.jp"
+		"*://www.nicovideo.jp/*",
+		"*://www.upload.nicovideo.jp/*"
 	]
 }
