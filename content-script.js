@@ -101,13 +101,11 @@ const copyLikedUsers = page => {
 
 /* --- 日時(time)でソート --- */
 const sortByTime = list => {
-	console.log(list);
 	list.sort((a, b) => {
 		if (a.time > b.time) return -1;
 		if (a.time < b.time) return 1;
 		return 0;
 	});
-	console.log(list);
 	return list;
 };
 
