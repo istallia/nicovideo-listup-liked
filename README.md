@@ -12,8 +12,8 @@ Chrome拡張機能/Firefoxアドオンとして開発する。
 
 ## ストア説明文
 
-Chromeウェブストア: (申請中)  
-Firefoxアドオンセンター: (申請中)
+Chromeウェブストア: https://chrome.google.com/webstore/detail/accfkkgmbbglammgemoplkjdihanghae  
+Firefoxアドオンセンター: https://addons.mozilla.org/ja/firefox/addon/ニコ動いいねリストアップツール/
 
 ニコニコ動画において、自身の動画に「いいね！」をしてくれたユーザーをリストアップ、コピーするツールです。  
 デフォルトではプレミアム会員を先頭にする順番になっていますが、本ツールでは会員の種別を無視した日時順にソートし直すことも可能です。
