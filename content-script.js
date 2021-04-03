@@ -49,11 +49,15 @@ const putCopyButton = () => {
 	li.appendChild(button);
 	ul.appendChild(li);
 	exist_button = true;
+	/* (一応)ユーザリストやカウントをリセット */
+	liked_users = [];
+	retry_count = 0;
 };
 
 
 /* --- いいねユーザを取得、コピーする関数(トリガ) --- */
 let liked_users = [];
+let retry_count = 0;
 const copyLikedUsers = page => {
 	if ((typeof page).toLowerCase() !== 'number') page = 1;
 	/* 動画のIDを取得 */
@@ -73,8 +77,19 @@ const copyLikedUsers = page => {
 		credentials : 'include',
 		cache       : 'no-cache'
 	})
+	.catch(err => window.alert('サーバーに接続できませんでした。インターネット接続を確認してください。'))
 	.then(response => response.json())
 	.then(json => {
+		/* エラーチェック */
+		if (json.meta.status !== 200) {
+			if (retry_count < 4) {
+				retry_count++;
+				setTimeout(copyLikedUsers, 3000, page);
+			} else {
+				window.alert('ユーザーの取得に失敗しました。間を空けて再試行してください。');
+			}
+			return;
+		}
 		/* いいねユーザリストに取得したユーザを追加 */
 		json.data.items.forEach(friend => {
 			liked_users.push({
@@ -92,8 +107,9 @@ const copyLikedUsers = page => {
 			/* コピー */
 			liked_users = liked_users.map(data => data.name);
 			navigator.clipboard.writeText(liked_users.join('\n'));
-			alert(String(liked_users.length)+'件のユーザー名をコピーしました。');
+			window.alert(String(liked_users.length)+'件のユーザー名をコピーしました。');
 			liked_users = [];
+			retry_count = 0;
 		}
 	});
 };
