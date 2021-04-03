@@ -50,7 +50,6 @@ const putCopyButton = () => {
 	ul.appendChild(li);
 	exist_button = true;
 };
-putCopyButton();
 
 
 /* --- いいねユーザを取得、コピーする関数 --- */
@@ -63,20 +62,18 @@ const copyLikedUsers = () => {
 		_frontendVersion : '1.0.0',
 		term             : 'halfYear',
 		sort             : 'premiumPriority',
-		pageSize         : 65535,
+		pageSize         : 20,
 		page             : 1
 	};
-	const xhr = new XMLHttpRequest();
-	xhr.open('GET', 'https://nvapi.nicovideo.jp/v2/users/me/videos/'+video_id+'/likes?'+encodeHTMLForm(params));
-	xhr.responseType    = 'json';
-	xhr.withCredentials = true;
-	xhr.setRequestHeader('Cache-Control', 'no-cache');
-	/* 受信イベントを用意 */
-	const eventHandler = () => {
-		console.log(xhr.response);
-	};
-	/* 送信 */
-	xhr.send();
+	fetch('https://nvapi.nicovideo.jp/v2/users/me/videos/'+video_id+'/likes?'+encodeHTMLForm(params), {
+		mode        : 'cors',
+		credentials : 'include',
+		cache       : 'no-cache'
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log(data);
+	});
 };
 
 
@@ -90,3 +87,7 @@ const encodeHTMLForm = data => {
 	}
 	return params.join('&').replace(/%20/g, '+');
 }
+
+
+/* --- 読み込み時にボタン配置を行う --- */
+putCopyButton();
