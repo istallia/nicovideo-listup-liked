@@ -52,18 +52,21 @@ const putCopyButton = () => {
 };
 
 
-/* --- いいねユーザを取得、コピーする関数 --- */
-const copyLikedUsers = () => {
-	/* 通信を準備 */
+/* --- いいねユーザを取得、コピーする関数(トリガ) --- */
+let liked_users = [];
+const copyLikedUsers = page => {
+	if ((typeof page).toLowerCase() !== 'number') page = 1;
+	/* 動画のIDを取得 */
 	let video_id = location.pathname.split('/');
 	video_id     = video_id[video_id.length-1];
+	/* パラメータを準備して送信 */
 	const params = {
 		_frontendId      : 23,
 		_frontendVersion : '1.0.0',
 		term             : 'halfYear',
 		sort             : 'premiumPriority',
 		pageSize         : 20,
-		page             : 1
+		page             : page
 	};
 	fetch('https://nvapi.nicovideo.jp/v2/users/me/videos/'+video_id+'/likes?'+encodeHTMLForm(params), {
 		mode        : 'cors',
@@ -71,9 +74,41 @@ const copyLikedUsers = () => {
 		cache       : 'no-cache'
 	})
 	.then(response => response.json())
-	.then(data => {
-		console.log(data);
+	.then(json => {
+		/* いいねユーザリストに取得したユーザを追加 */
+		json.data.items.forEach(friend => {
+			liked_users.push({
+				name : friend.user.nickname,
+				time : Date.parse(friend.like.likedAt)
+			});
+		});
+		/* 続きがあれば次のリクエストへ(再帰) */
+		if (json.data.summary.hasNext) {
+			copyLikedUsers(page+1);
+		} else {
+			/* ソート選択 */
+			const exe_sort = window.confirm('「いいね！」ユーザーは、標準ではプレミアム会員を優先した日時順にソートされています。\nプレミアム会員かどうかを無視した通常の日時順にソートし直しますか？');
+			if (exe_sort) liked_users = sortByTime(liked_users);
+			/* コピー */
+			liked_users = liked_users.map(data => data.name);
+			navigator.clipboard.writeText(liked_users.join('\n'));
+			alert(String(liked_users.length)+'件のユーザー名をコピーしました。');
+			liked_users = [];
+		}
 	});
+};
+
+
+/* --- 日時(time)でソート --- */
+const sortByTime = list => {
+	console.log(list);
+	list.sort((a, b) => {
+		if (a.time > b.time) return -1;
+		if (a.time < b.time) return 1;
+		return 0;
+	});
+	console.log(list);
+	return list;
 };
 
 
