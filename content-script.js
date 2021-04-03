@@ -17,7 +17,6 @@ const putCopyButton = () => {
 	if (document.getElementById('ista-button-copy_liked_users')) return;
 	/* 「いいね！したユーザー」のボタンの存在確認 */
 	const button_liked = document.querySelector('div > ul > li > button');
-	console.log(button_liked);
 	if (!button_liked) return;
 	const ul = button_liked.parentNode.parentNode;
 	/* 要素を準備 */
@@ -69,9 +68,9 @@ const copyLikedUsers = () => {
 	};
 	const xhr = new XMLHttpRequest();
 	xhr.open('GET', 'https://nvapi.nicovideo.jp/v2/users/me/videos/'+video_id+'/likes?'+encodeHTMLForm(params));
-	xhr.responseType = 'json';
+	xhr.responseType    = 'json';
+	xhr.withCredentials = true;
 	xhr.setRequestHeader('Cache-Control', 'no-cache');
-	xhr.setRequestHeader('Connection', 'keep-alive');
 	/* 受信イベントを用意 */
 	const eventHandler = () => {
 		console.log(xhr.response);
