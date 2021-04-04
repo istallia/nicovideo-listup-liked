@@ -170,7 +170,6 @@ const updateProgressbar = (current_value = 0, max_value = null) => {
 	/* 進捗率を計算 */
 	const per           = Math.round(current_value * 100 / max_value);
 	current.style.width = String(per) + 'vw';
-	console.log(per);
 };
 
 
