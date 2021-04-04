@@ -1,5 +1,6 @@
 /* --- プログレスバー関連 --- */
 div.ista-communication {
+	display          : none;
 	position         : fixed;
 	z-index          : 1000;
 	bottom           : 0px;
@@ -12,6 +13,7 @@ div.ista-communication {
 	border-top       : solid 1px #444;
 	background-color : #fffc;
 }
+div.ista-communication.visible { display : block; }
 div.ista-communication-text {
 	margin  : 0px;
 	padding : 12px;
@@ -33,5 +35,5 @@ div.ista-communication > div.ista-communication-progress > div {
 	width            : 0px;
 	height           : 8px;
 	background-color : #0075c2;
-	transition       : width 0.5s ease-out;
+	transition       : width 0.3s ease-out;
 }

@@ -59,7 +59,10 @@ const putCopyButton = () => {
 let liked_users = [];
 let retry_count = 0;
 const copyLikedUsers = page => {
+	/* 引数チェック */
 	if ((typeof page).toLowerCase() !== 'number') page = 1;
+	/* プログレスバー表示 */
+	createProgressbar(false);
 	/* 動画のIDを取得 */
 	let video_id = location.pathname.split('/');
 	video_id     = video_id[video_id.length-1];
@@ -101,32 +104,46 @@ const copyLikedUsers = page => {
 				time : Date.parse(friend.like.likedAt)
 			});
 		});
+		/* プログレスバーを更新 */
+		updateProgressbar(page, Math.ceil(json.data.summary.termCount/20));
 		/* 続きがあれば次のリクエストへ(再帰) */
 		if (json.data.summary.hasNext) {
-			copyLikedUsers(page+1);
+			setTimeout(copyLikedUsers, 0, page+1);
 		} else {
-			/* ソート選択 */
-			const exe_sort = window.confirm('「いいね！」ユーザーは、標準ではプレミアム会員を優先した日時順にソートされています。\nプレミアム会員かどうかを無視した通常の日時順にソートし直しますか？');
-			if (exe_sort) liked_users = sortByTime(liked_users);
-			/* コピー */
-			liked_users = liked_users.map(data => data.name);
-			navigator.clipboard.writeText(liked_users.join('\n'));
-			window.alert(String(liked_users.length)+'件のユーザー名をコピーしました。');
-			liked_users = [];
-			retry_count = 0;
+			setTimeout(() => {
+				/* ソート選択 */
+				const exe_sort = window.confirm('「いいね！」ユーザーは、標準ではプレミアム会員を優先した日時順にソートされています。\nプレミアム会員かどうかを無視した通常の日時順にソートし直しますか？');
+				if (exe_sort) liked_users = sortByTime(liked_users);
+				/* コピー */
+				liked_users = liked_users.map(data => data.name);
+				navigator.clipboard.writeText(liked_users.join('\n'));
+				window.alert(String(liked_users.length)+'件のユーザー名をコピーしました。');
+				document.getElementById('ista-communication').classList.remove('visible');
+				liked_users = [];
+				retry_count = 0;
+			}, 400);
 		}
 	});
 };
 
 
 /* --- フッタを作成 --- */
-const createProgressbar = () => {
+const createProgressbar = is_reset => {
+	/* 要素があれば表示する */
+	const footer = document.getElementById('ista-communication');
+	if (footer) {
+		if (is_reset) footer.querySelector('div.ista-communication-progress').firstChild.style.width = '0px';
+		footer.querySelector('div.ista-communication-progress').setAttribute('max', 10);
+		footer.classList.add('visible');
+		return;
+	}
 	/* 要素を生成 */
 	const parent   = document.createElement('div');
 	const text     = document.createElement('div');
 	const progress = document.createElement('div');
 	const current  = document.createElement('div');
-	parent.classList.add('ista-communication');
+	parent.id      = 'ista-communication';
+	parent.classList.add('ista-communication', 'visible');
 	text.classList.add('ista-communication-text');
 	text.innerText = '通信中です……';
 	progress.classList.add('ista-communication-progress');
@@ -137,7 +154,24 @@ const createProgressbar = () => {
 	parent.appendChild(progress);
 	document.body.appendChild(parent);
 };
-createProgressbar();
+
+
+/* --- プログレスバーを更新 --- */
+const updateProgressbar = (current_value = 0, max_value = null) => {
+	/* 要素を取得 */
+	const footer   = document.getElementById('ista-communication');
+	const progress = footer.querySelector('div.ista-communication-progress');
+	const current  = progress.firstChild;
+	if (max_value) {
+		progress.setAttribute('max', max_value);
+	} else {
+		max_value = Number(progress.getAttribute('max'));
+	}
+	/* 進捗率を計算 */
+	const per           = Math.round(current_value * 100 / max_value);
+	current.style.width = String(per) + 'vw';
+	console.log(per);
+};
 
 
 /* --- 日時(time)でソート --- */
