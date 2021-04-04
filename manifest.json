@@ -16,6 +16,7 @@
 	}],
 	"permissions" : [
 		"*://www.nicovideo.jp/*",
-		"*://www.upload.nicovideo.jp/*"
+		"*://www.upload.nicovideo.jp/*",
+		"*://nvapi.nicovideo.jp/v2/users/me/videos/*"
 	]
 }
