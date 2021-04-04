@@ -124,12 +124,15 @@ const createProgressbar = () => {
 	/* 要素を生成 */
 	const parent   = document.createElement('div');
 	const text     = document.createElement('div');
-	const progress = document.createElement('progress');
+	const progress = document.createElement('div');
+	const current  = document.createElement('div');
 	parent.classList.add('ista-communication');
 	text.classList.add('ista-communication-text');
 	text.innerText = '通信中です……';
-	progress.max   = 10;
+	progress.classList.add('ista-communication-progress');
+	progress.setAttribute('max', 10);
 	/* 要素を追加 */
+	progress.appendChild(current);
 	parent.appendChild(text);
 	parent.appendChild(progress);
 	document.body.appendChild(parent);
