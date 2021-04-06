@@ -1,7 +1,7 @@
 {
 	"manifest_version" : 2,
 	"name"             : "ニコ動いいねリストアップツール",
-	"version"          : "0.1.1",
+	"version"          : "0.1.2",
 	"description"      : "ニコニコ動画にて自身の動画の「いいね！」ユーザーをリストアップするツール",
 	"author"           : "istallia",
 	"icons" : {

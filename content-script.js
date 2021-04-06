@@ -64,8 +64,15 @@ const copyLikedUsers = page => {
 	/* プログレスバー表示 */
 	createProgressbar(false);
 	/* 動画のIDを取得 */
-	let video_id = location.pathname.split('/');
-	video_id     = video_id[video_id.length-1];
+	let split_url = location.pathname.split('/');
+	let video_id  = '';
+	do {
+		video_id = split_url.pop();
+	} while (video_id.slice(0,2) !== 'sm' && split_url.length > 0);
+	if (video_id.slice(0,2) !== 'sm' && split_url.length === 0) {
+		window.alert('URLから動画IDを検出できませんでした。\n一度投稿動画一覧を表示してから、当該動画のアナリティクスを再表示してお試しください。');
+		return null;
+	}
 	/* パラメータを準備して送信 */
 	const params = {
 		_frontendId      : 23,
@@ -95,7 +102,7 @@ const copyLikedUsers = page => {
 			} else {
 				window.alert('ユーザーの取得に失敗しました。間を空けて再試行してください。');
 			}
-			return;
+			return null;
 		}
 		/* いいねユーザリストに取得したユーザを追加 */
 		json.data.items.forEach(friend => {
