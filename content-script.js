@@ -77,7 +77,9 @@ const copyLikedUsers = page => {
 	const params = {
 		_frontendId      : 23,
 		_frontendVersion : '1.0.0',
-		term             : 'halfYear',
+		// term             : 'halfYear',
+		from             : '2000-01-01',
+		to               : '2100-01-01',
 		sort             : 'premiumPriority',
 		pageSize         : 20,
 		page             : page
