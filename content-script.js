@@ -114,7 +114,7 @@ const copyLikedUsers = page => {
 			});
 		});
 		/* プログレスバーを更新 */
-		updateProgressbar(page, Math.ceil(json.data.summary.termCount/20));
+		updateProgressbar(page, Math.ceil(json.data.summary.totalCount/20));
 		/* 続きがあれば次のリクエストへ(再帰) */
 		if (json.data.summary.hasNext) {
 			setTimeout(copyLikedUsers, 0, page+1);
