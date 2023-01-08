@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021-2022 istallia
+ * Copyright (C) 2021-2023 istallia
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -94,7 +94,6 @@ const copyLikedUsers = page => {
 	const params = {
 		_frontendId      : 23,
 		_frontendVersion : '1.0.0',
-		// term             : 'halfYear',
 		from             : '2000-01-01',
 		to               : '2100-01-01',
 		sort             : 'premiumPriority',
