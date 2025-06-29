@@ -54,3 +54,35 @@ div.ista-communication > div.ista-communication-progress > div {
 	background-color : #0075c2;
 	transition       : width 0.3s ease-out;
 }
+
+/* --- ボタン用リプル効果 --- */
+span.ista-ripple-container {
+	position        : absolute;
+	top             : 0;
+	left            : 0;
+	width           : 100%;
+	height          : 100%;
+	overflow        : hidden;
+	pointer-events  : none;
+	border-radius   : inherit;
+}
+
+span.ista-ripple {
+	position        : absolute;
+	top             : 50%;
+	left            : 50%;
+	background-color: #66aaef;
+	border-radius   : 50%;
+	transform       : translate(-50%, -50%) scale(0);
+	opacity         : 0.75;
+	pointer-events  : none;
+}
+
+span.ista-ripple.animate {
+	animation: ista-ripple 300ms ease-out forwards;
+}
+
+@keyframes ista-ripple {
+	from { transform: translate(-50%, -50%) scale(0); opacity: 0.75; }
+	to   { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
