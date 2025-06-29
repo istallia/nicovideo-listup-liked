@@ -66,6 +66,7 @@ span.ista-ripple-container {
        pointer-events  : none;
        border-radius   : inherit;
        display         : block;
+       z-index         : 1;
 }
 
 span.ista-ripple {

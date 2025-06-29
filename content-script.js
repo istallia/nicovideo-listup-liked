@@ -54,8 +54,9 @@ const putCopyButton = () => {
 	const path    = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 	const caption = document.createElement('span');
 	button.id     = 'ista-button-copy_liked_users';
-	button.classList.add(... button_liked.classList);
-	button.style.position = 'relative';
+button.classList.add(... button_liked.classList);
+button.style.position = 'relative';
+button.style.overflow = 'hidden';
 	button.setAttribute('tab-index', '0');
 	button.setAttribute('type', 'button');
 	span.classList.add(... svg_span_liked.classList);
@@ -68,11 +69,11 @@ const putCopyButton = () => {
 	caption.innerText = '「いいね！」したユーザーをコピー';
 	button.addEventListener('click', copyLikedUsers);
 	/* 要素を組み立て */
-	svg.appendChild(path);
+svg.appendChild(path);
 	span.appendChild(svg);
 	button.appendChild(span);
 	button.appendChild(caption);
-	button.appendChild(ripple_container);
+	button.prepend(ripple_container);
 	button.addEventListener('mousedown', ev => {
 		const rect = button.getBoundingClientRect();
 		const size = Math.max(rect.width, rect.height) * 2;
