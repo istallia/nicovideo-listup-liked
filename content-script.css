@@ -57,14 +57,15 @@ div.ista-communication > div.ista-communication-progress > div {
 
 /* --- ボタン用リプル効果 --- */
 span.ista-ripple-container {
-	position        : absolute;
-	top             : 0;
-	left            : 0;
-	width           : 100%;
-	height          : 100%;
-	overflow        : hidden;
-	pointer-events  : none;
-	border-radius   : inherit;
+       position        : absolute;
+       top             : 0;
+       left            : 0;
+       width           : 100%;
+       height          : 100%;
+       overflow        : hidden;
+       pointer-events  : none;
+       border-radius   : inherit;
+       display         : block;
 }
 
 span.ista-ripple {
