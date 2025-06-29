@@ -36,23 +36,21 @@ const putCopyButton = () => {
 	const svg_liked_candidates = Array.from(document.querySelectorAll('button.MuiButtonBase-root > span > svg[class]'));
 	const filtered             = svg_liked_candidates.filter(svg => {
 		const button = svg.parentNode.parentNode;
-		return button.querySelector('span[class*="Ripple"]');
+		const text   = button.innerText;
+		return text.includes('いいね') || text.toLowerCase().includes('like');
 	});
-	console.log(filtered);
 	if (filtered.length === 0) return;
 	const svg_liked      = filtered[0];
 	const button_liked   = svg_liked.parentNode.parentNode;
 	const svg_span_liked = svg_liked.parentNode;
-	const ripple_elem    = button_liked.querySelector('span[class*="Ripple"]');
-	const ripple_liked   = ripple_elem.cloneNode(true);
 	const listDiv        = button_liked.parentNode;
 	/* 要素を準備 */
-	const button  = document.createElement('button');
-	const span    = document.createElement('span');
-	const svg     = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	const path    = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-	const caption = document.createElement('span');
-	button.id     = 'ista-button-copy_liked_users';
+	const button    = document.createElement('button');
+	const span      = document.createElement('span');
+	const svg       = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	const path      = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+	const caption   = document.createElement('span');
+	button.id       = 'ista-button-copy_liked_users';
 	button.classList.add(... button_liked.classList);
 	button.setAttribute('tab-index', '0');
 	button.setAttribute('type', 'button');
@@ -70,7 +68,6 @@ const putCopyButton = () => {
 	span.appendChild(svg);
 	button.appendChild(span);
 	button.appendChild(caption);
-	button.appendChild(ripple_liked);
 	listDiv.appendChild(button);
 	exist_button = true;
 	/* (一応)ユーザリストやカウントをリセット */

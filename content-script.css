@@ -54,3 +54,17 @@ div.ista-communication > div.ista-communication-progress > div {
 	background-color : #0075c2;
 	transition       : width 0.3s ease-out;
 }
+
+/* --- ボタン用リプル効果 --- */
+span.ista-ripple-container {
+       position        : absolute;
+       top             : 0;
+       left            : 0;
+       width           : 100%;
+       height          : 100%;
+       overflow        : hidden;
+       pointer-events  : none;
+       border-radius   : inherit;
+       display         : block;
+       z-index         : 1;
+}
