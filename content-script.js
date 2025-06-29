@@ -39,24 +39,19 @@ const putCopyButton = () => {
 		const text   = button.innerText;
 		return text.includes('いいね') || text.toLowerCase().includes('like');
 	});
-	console.log(filtered);
 	if (filtered.length === 0) return;
 	const svg_liked      = filtered[0];
 	const button_liked   = svg_liked.parentNode.parentNode;
 	const svg_span_liked = svg_liked.parentNode;
-	const ripple_container = document.createElement('span');
-	ripple_container.classList.add('ista-ripple-container');
 	const listDiv        = button_liked.parentNode;
 	/* 要素を準備 */
-	const button  = document.createElement('button');
-	const span    = document.createElement('span');
-	const svg     = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	const path    = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-	const caption = document.createElement('span');
-	button.id     = 'ista-button-copy_liked_users';
-button.classList.add(... button_liked.classList);
-button.style.position = 'relative';
-button.style.overflow = 'hidden';
+	const button    = document.createElement('button');
+	const span      = document.createElement('span');
+	const svg       = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	const path      = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+	const caption   = document.createElement('span');
+	button.id       = 'ista-button-copy_liked_users';
+	button.classList.add(... button_liked.classList);
 	button.setAttribute('tab-index', '0');
 	button.setAttribute('type', 'button');
 	span.classList.add(... svg_span_liked.classList);
@@ -69,22 +64,10 @@ button.style.overflow = 'hidden';
 	caption.innerText = '「いいね！」したユーザーをコピー';
 	button.addEventListener('click', copyLikedUsers);
 	/* 要素を組み立て */
-svg.appendChild(path);
+	svg.appendChild(path);
 	span.appendChild(svg);
 	button.appendChild(span);
 	button.appendChild(caption);
-	button.prepend(ripple_container);
-	button.addEventListener('mousedown', ev => {
-		const rect = button.getBoundingClientRect();
-		const size = Math.max(rect.width, rect.height) * 2;
-		const ripple = document.createElement('span');
-		ripple.classList.add('ista-ripple');
-		ripple.style.width = ripple.style.height = size + 'px';
-		ripple.style.marginLeft = ripple.style.marginTop = -(size / 2) + 'px';
-		ripple_container.appendChild(ripple);
-		ripple.addEventListener('animationend', () => ripple.remove());
-		ripple.classList.add('animate');
-	});
 	listDiv.appendChild(button);
 	exist_button = true;
 	/* (一応)ユーザリストやカウントをリセット */
