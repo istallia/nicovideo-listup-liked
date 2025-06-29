@@ -1,7 +1,7 @@
 {
 	"manifest_version" : 3,
 	"name"             : "ニコ動いいねリストアップツール",
-	"version"          : "0.2.0",
+	"version"          : "0.2.1",
 	"description"      : "ニコニコ動画にて自身の動画の「いいね！」ユーザーをリストアップするツール",
 	"author"           : "istallia",
 	"icons" : {
@@ -10,13 +10,14 @@
 		"128" : "icon_128.png"
 	},
 	"content_scripts" : [{
-		"matches" : ["*://www.upload.nicovideo.jp/*"],
+		"matches" : ["*://www.upload.nicovideo.jp/*", "*://garage.nicovideo.jp/niconico-garage/*"],
 		"js"      : ["content-script.js"],
 		"css"     : ["content-script.css"]
 	}],
 	"host_permissions" : [
 		"*://www.nicovideo.jp/*",
 		"*://www.upload.nicovideo.jp/*",
+		"*://garage.nicovideo.jp/niconico-garage/*",
 		"*://nvapi.nicovideo.jp/v2/users/me/videos/*"
 	]
 }
